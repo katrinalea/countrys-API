@@ -1,76 +1,74 @@
-
 .flex-item {
-    background: white;
-    padding: 2px;
-    width: 250px;
-    height: 300px;
-    margin-top: 5px;
-    font-weight: bold;
-    font-size: 0.9em;
-    text-align: center;
-    border: 0.5ch;
-    border-radius: 4ch;
-    border-color: solid black;
-    border-style: solid;
-  }
+  background: white;
+  padding: 2px;
+  width: 250px;
+  height: 300px;
+  margin-top: 5px;
+  font-weight: bold;
+  font-size: 0.9em;
+  text-align: center;
+  border: 0.5ch;
+  border-radius: 4ch;
+  border-color: solid black;
+  border-style: solid;
+}
 .countrytitle {
-    text-align: center;
+  text-align: center;
 }
 .countrycapital {
-    text-align: center;
+  text-align: center;
 }
 .countryflag {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 80%;
-    height:50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  height: 50%;
 }
 
 .flex-container {
-    /* We first create a flex layout context */
-    display: flex;
-    
-    /* Then we define the flow direction 
+  /* We first create a flex layout context */
+  display: flex;
+
+  /* Then we define the flow direction 
        and if we allow the items to wrap 
      * Remember this is the same as:
      * flex-direction: row;
      * flex-wrap: wrap;
      */
-    flex-flow: row wrap;
-    
-    /* Then we define how is distributed the remaining space */
-    justify-content: space-around;
-    
-    padding: 0;
-    margin: 0;
-    list-style: none;
-  }
+  flex-flow: row wrap;
 
-  .title {
-    text-align: center;
-    color: rgb(86, 83, 83);
-    font-size: 500%;
-  }
+  /* Then we define how is distributed the remaining space */
+  justify-content: space-around;
 
-  .searchbar {
-    text-align: center;
-    padding: 6px;
-    border: black solid;
-    margin-top: 8px;
-    margin-right: auto;
-    margin-left: auto;
-    font-size: 17px;
-  }
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
 
-  .page{
-    text-align: center;
-  }
+.title {
+  text-align: center;
+  color: rgb(86, 83, 83);
+  font-size: 500%;
+}
 
-  .navBar {
-    width: 357px;
+.searchbar {
+  text-align: center;
+  padding: 6px;
+  border: black solid;
+  margin-top: 8px;
   margin-right: auto;
   margin-left: auto;
-
+  font-size: 17px;
 }
-  
+
+.page {
+  text-align: center;
+}
+
+.navBar {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  text-align: left;
+}
