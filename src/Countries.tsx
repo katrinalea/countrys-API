@@ -24,25 +24,26 @@ export default function Countries(): JSX.Element {
     const fetchCountry = async () => {
       const response = await fetch("https://restcountries.com/v3.1/all");
       const jsonBody: country[] = await response.json();
-      // for (const item in jsonBody){
-      //   setCountry([jsonBody[item]]);
-      // }
       setCountry(jsonBody);
-
-      //set the new component state using the data
     };
     fetchCountry();
   }, []);
+  //fetching API, setting country state to render the API info, specifically the flag name and capital
 
   const handleVisited = (countryName: string) => {
+    // visitedCountry.includes(countryName) ?
+    //setVisitedCountry(visitedCountry.splice(visitedCountry.indexOf(countryName))) :
     setVisitedCountry([...visitedCountry, countryName]);
     console.log(visitedCountry);
   };
+  // when a button is clicked it adds to the visted country list
 
-  const navigateHandler = (buttonPressed:string) => {
-    setNavigated(buttonPressed)
-  }
+  const navigateHandler = (buttonPressed: string) => {
+    setNavigated(buttonPressed);
+  };
+  //when a button in the navigation bar is pressed, navigated is queued a string specvific to the button
 
+  //maps all of the countries turning them into buttons
   const countries = country
     .filter((country: country) =>
       country.name.common.toLowerCase().includes(searchedCountry.toLowerCase())
@@ -66,9 +67,9 @@ export default function Countries(): JSX.Element {
       </button>
     ));
 
-    const visitedCountries = country
-    .filter((country: country) => visitedCountry.includes(country.name.common)
-    )
+  //filters the countries so that only those that have been clicked and added to the visited list are renders
+  const visitedCountries = country
+    .filter((country: country) => visitedCountry.includes(country.name.common))
     .map((country) => (
       <button key="" onClick={() => handleVisited(country.name.common)}>
         <>
@@ -88,15 +89,14 @@ export default function Countries(): JSX.Element {
       </button>
     ));
 
-    const renderedCountries = () => {
-      if (navigated === "all"){
-        return countries
-      }
-      else if (navigated === "visited") {
-        return visitedCountries
-      }
+  // controls what is rendered via the navigation bar
+  const renderedCountries = () => {
+    if (navigated === "all") {
+      return countries;
+    } else if (navigated === "visited") {
+      return visitedCountries;
     }
-
+  };
 
   return (
     <>
@@ -104,8 +104,14 @@ export default function Countries(): JSX.Element {
         <h1 className="title"> Country information sheet</h1>
 
         <div className="navBar">
-          <button onClick= {() => navigateHandler("all")}> All Countries </button>
-          <button onClick={()=> navigateHandler("visited")}> Visited Countries </button>
+          <button onClick={() => navigateHandler("all")}>
+            {" "}
+            All Countries{" "}
+          </button>
+          <button onClick={() => navigateHandler("visited")}>
+            {" "}
+            Visited Countries{" "}
+          </button>
         </div>
 
         <h3> Search for a country below:</h3>
