@@ -32,8 +32,7 @@
 
   /* Then we define the flow direction 
        and if we allow the items to wrap 
-     * Remember this is the same as:
-     * flex-direction: row;
+     * Remember this is the same as:0     * flex-direction: row;
      * flex-wrap: wrap;
      */
   flex-flow: row wrap;

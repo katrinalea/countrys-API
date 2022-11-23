@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Countries from "./Countries";
+import App from "./App";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Countries />
+    <App />
   </React.StrictMode>,
   document.getElementById("root")
 );

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { isPropertySignature } from "typescript";
 import "./style.css";
 
 interface country {
@@ -14,11 +15,15 @@ interface flag {
   png: string;
 }
 
-export default function Countries(): JSX.Element {
+interface Props {
+  //handleRender: () => void,
+  handleChangeVisited: (list: string[]) => void;
+}
+
+export default function Countries(props: Props): JSX.Element {
   const [country, setCountry] = useState<country[]>([]);
   const [searchedCountry, setSearchedCountry] = useState<string>("");
-  const [visitedCountry, setVisitedCountry] = useState<string[]>([]);
-  const [navigated, setNavigated] = useState<string>("all");
+  const [visited, setVisited] = useState<string[]>([]);
 
   useEffect(() => {
     const fetchCountry = async () => {
@@ -28,22 +33,13 @@ export default function Countries(): JSX.Element {
     };
     fetchCountry();
   }, []);
-  //fetching API, setting country state to render the API info, specifically the flag name and capital
 
   const handleVisited = (countryName: string) => {
-    // visitedCountry.includes(countryName) ?
-    //setVisitedCountry(visitedCountry.splice(visitedCountry.indexOf(countryName))) :
-    setVisitedCountry([...visitedCountry, countryName]);
-    console.log(visitedCountry);
+    setVisited([...visited, countryName]);
+    console.log(visited);
+    props.handleChangeVisited(visited);
   };
-  // when a button is clicked it adds to the visted country list
 
-  const navigateHandler = (buttonPressed: string) => {
-    setNavigated(buttonPressed);
-  };
-  //when a button in the navigation bar is pressed, navigated is queued a string specvific to the button
-
-  //maps all of the countries turning them into buttons
   const countries = country
     .filter((country: country) =>
       country.name.common.toLowerCase().includes(searchedCountry.toLowerCase())
@@ -67,53 +63,10 @@ export default function Countries(): JSX.Element {
       </button>
     ));
 
-  //filters the countries so that only those that have been clicked and added to the visited list are renders
-  const visitedCountries = country
-    .filter((country: country) => visitedCountry.includes(country.name.common))
-    .map((country) => (
-      <button key="" onClick={() => handleVisited(country.name.common)}>
-        <>
-          <div className="flex-item">
-            <>
-              <h1 className="countrytitle">
-                Country Name : {country.name.common}{" "}
-              </h1>
-              <img className="countryflag" src={country.flags.png} alt="" />
-              <h2 className="countrycapital">
-                {" "}
-                Country Capital: {country.capital}
-              </h2>
-            </>
-          </div>
-        </>
-      </button>
-    ));
-
-  // controls what is rendered via the navigation bar
-  const renderedCountries = () => {
-    if (navigated === "all") {
-      return countries;
-    } else if (navigated === "visited") {
-      return visitedCountries;
-    }
-  };
-
   return (
     <>
       <div className="page">
         <h1 className="title"> Country information sheet</h1>
-
-        <div className="navBar">
-          <button onClick={() => navigateHandler("all")}>
-            {" "}
-            All Countries{" "}
-          </button>
-          <button onClick={() => navigateHandler("visited")}>
-            {" "}
-            Visited Countries{" "}
-          </button>
-        </div>
-
         <h3> Search for a country below:</h3>
         <input
           className="searchbar"
@@ -124,7 +77,7 @@ export default function Countries(): JSX.Element {
         />
         <p> Select a country to add it to your visited list</p>
 
-        <div className="flex-container">{renderedCountries()}</div>
+        <div className="flex-container">{countries}</div>
       </div>
     </>
   );
