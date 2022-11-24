@@ -5,7 +5,7 @@ interface country {
   name: names;
   capital: string;
   flags: flag;
-  ccn3: number
+  ccn3: number;
 }
 interface names {
   common: string;
@@ -18,7 +18,7 @@ interface flag {
 interface Props {
   handleChangeVisited: (list: string[]) => void;
 }
-let visitedList: string[] = []
+let visitedList: string[] = [];
 export default function Countries(props: Props): JSX.Element {
   const [country, setCountry] = useState<country[]>([]);
   const [searchedCountry, setSearchedCountry] = useState<string>("");
@@ -33,14 +33,13 @@ export default function Countries(props: Props): JSX.Element {
     fetchCountry();
   }, []);
 
- 
   const handleVisited = (countryName: string) => {
     // setVisited([...visited, countryName]);
     console.log(visitedList);
     // props.handleChangeVisited(visited);
-    visitedList = [...visitedList, countryName]
+    visitedList = [...visitedList, countryName];
     console.log(visitedList);
-    props.handleChangeVisited(visitedList)
+    props.handleChangeVisited(visitedList);
   };
 
   const countries = country

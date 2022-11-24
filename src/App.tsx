@@ -25,8 +25,10 @@ export default function App(): JSX.Element {
       {navigated === "all" ? (
         <Countries handleChangeVisited={changedVisited} />
       ) : (
-        <VisitedCountrys visitedCountries={visitedCountries}
-        handleChangeVisited={changedVisited} />
+        <VisitedCountrys
+          visitedCountries={visitedCountries}
+          handleChangeVisited={changedVisited}
+        />
       )}
     </>
   );

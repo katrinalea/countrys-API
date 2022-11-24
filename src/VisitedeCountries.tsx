@@ -5,7 +5,7 @@ interface visitedCountry {
   name: names;
   capital: string;
   flags: flag;
-  ccn3: number
+  ccn3: number;
 }
 interface names {
   common: string;
@@ -30,20 +30,21 @@ export default function VisitedCountrys(props: Props): JSX.Element {
       const response = await fetch("https://restcountries.com/v3.1/all");
       const jsonBody: visitedCountry[] = await response.json();
       setAllCountrys(jsonBody);
-    }
+    };
     fetchCountry();
   }, []);
 
   const removeVisited = (countryName: string) => {
-    const removedVisited = props.visitedCountries.filter(i => i !== countryName)
+    const removedVisited = props.visitedCountries.filter(
+      (i) => i !== countryName
+    );
     props.handleChangeVisited(removedVisited);
   };
 
-
   const mappedCountrys = allCountrys
     .filter((country) => props.visitedCountries.includes(country.name.common))
-    .map((country,index) => (
-      <button key={index} onClick = {() => removeVisited(country.name.common)}>
+    .map((country, index) => (
+      <button key={index} onClick={() => removeVisited(country.name.common)}>
         <>
           <div className="flex-item">
             <>
