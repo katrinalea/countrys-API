@@ -47,7 +47,7 @@ export default function Countries(props: Props): JSX.Element {
       country.name.common.toLowerCase().includes(searchedCountry.toLowerCase())
     )
     .map((country, index) => (
-      <button key={index} onClick={() => handleVisited(country.name.common)}>
+      
         <>
           <div className="flex-item">
             <>
@@ -59,10 +59,11 @@ export default function Countries(props: Props): JSX.Element {
                 {" "}
                 Country Capital: {country.capital}
               </h2>
+              <button className = "button" key={index} onClick={() => handleVisited(country.name.common)}>Visited</button>
             </>
           </div>
         </>
-      </button>
+      
     ));
 
   return (
@@ -77,7 +78,8 @@ export default function Countries(props: Props): JSX.Element {
           value={searchedCountry}
           onChange={(e) => setSearchedCountry(e.target.value)}
         />
-        <p> Select a country to add it to your visited list</p>
+        <p> Select 'Visited' to add a country to your visited list</p>
+        <p> Select 'Future' to add a country to your want to visit list</p>
 
         <div className="flex-container">{countries}</div>
       </div>

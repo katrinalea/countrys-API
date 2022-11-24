@@ -5,7 +5,7 @@
   height: 300px;
   margin-top: 5px;
   font-weight: bold;
-  font-size: 0.9em;
+  font-size: 0.7em;
   text-align: center;
   border: 0.5ch;
   border-radius: 4ch;
@@ -17,13 +17,14 @@
 }
 .countrycapital {
   text-align: center;
+  font-size: medium;
 }
 .countryflag {
   display: block;
   margin-left: auto;
   margin-right: auto;
   width: 80%;
-  height: 50%;
+  height: 40%;
 }
 
 .flex-container {
@@ -48,7 +49,7 @@
 .title {
   text-align: center;
   color: rgb(86, 83, 83);
-  font-size: 500%;
+  font-size: 400%;
 }
 
 .searchbar {
@@ -71,3 +72,35 @@
   margin-left: auto;
   text-align: left;
 }
+
+.button {  
+  background-color: green;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  margin: 4px 2px;
+  cursor: pointer;
+  height: 20px;
+  border-radius: 2ch;
+}
+
+.navigate-button {
+  background-color: black;
+  border: none;
+  color: white;
+  box-shadow: inset;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  margin: 4px 2px;
+  cursor: pointer;
+  height: 50px;
+  border-radius: 2ch;
+
+}
+
+

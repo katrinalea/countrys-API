@@ -44,7 +44,6 @@ export default function VisitedCountrys(props: Props): JSX.Element {
   const mappedCountrys = allCountrys
     .filter((country) => props.visitedCountries.includes(country.name.common))
     .map((country, index) => (
-      <button key={index} onClick={() => removeVisited(country.name.common)}>
         <>
           <div className="flex-item">
             <>
@@ -57,9 +56,10 @@ export default function VisitedCountrys(props: Props): JSX.Element {
                 Country Capital: {country.capital}
               </h2>
             </>
+            <button className = "button" key={index} onClick={() => removeVisited(country.name.common)}>Not visited</button>
           </div>
+          
         </>
-      </button>
     ));
 
   return (

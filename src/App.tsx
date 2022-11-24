@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Countries from "./Countries";
 import VisitedCountrys from "./VisitedeCountries";
+import "./style.css"
 
 export default function App(): JSX.Element {
   const [navigated, setNavigated] = useState<string>("all");
@@ -16,8 +17,8 @@ export default function App(): JSX.Element {
   return (
     <>
       <div className="navBar">
-        <button onClick={() => handleRender("all")}> All Countries </button>
-        <button onClick={() => handleRender("visited")}>
+        <button className = "navigate-button" onClick={() => handleRender("all")}> All Countries </button>
+        <button className = "navigate-button" onClick={() => handleRender("visited")}>
           {" "}
           Visited Countries{" "}
         </button>
