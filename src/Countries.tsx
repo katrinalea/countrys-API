@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { isPropertySignature } from "typescript";
 import "./style.css";
 
 interface country {
   name: names;
   capital: string;
   flags: flag;
+  ccn3: number
 }
 interface names {
   common: string;
@@ -16,14 +16,13 @@ interface flag {
 }
 
 interface Props {
-  //handleRender: () => void,
   handleChangeVisited: (list: string[]) => void;
 }
-
+let visitedList: string[] = []
 export default function Countries(props: Props): JSX.Element {
   const [country, setCountry] = useState<country[]>([]);
   const [searchedCountry, setSearchedCountry] = useState<string>("");
-  const [visited, setVisited] = useState<string[]>([]);
+  //const [visited, setVisited] = useState<string[]>([]);
 
   useEffect(() => {
     const fetchCountry = async () => {
@@ -34,18 +33,22 @@ export default function Countries(props: Props): JSX.Element {
     fetchCountry();
   }, []);
 
+ 
   const handleVisited = (countryName: string) => {
-    setVisited([...visited, countryName]);
-    console.log(visited);
-    props.handleChangeVisited(visited);
+    // setVisited([...visited, countryName]);
+    console.log(visitedList);
+    // props.handleChangeVisited(visited);
+    visitedList = [...visitedList, countryName]
+    console.log(visitedList);
+    props.handleChangeVisited(visitedList)
   };
 
   const countries = country
     .filter((country: country) =>
       country.name.common.toLowerCase().includes(searchedCountry.toLowerCase())
     )
-    .map((country) => (
-      <button key="" onClick={() => handleVisited(country.name.common)}>
+    .map((country, index) => (
+      <button key={index} onClick={() => handleVisited(country.name.common)}>
         <>
           <div className="flex-item">
             <>
