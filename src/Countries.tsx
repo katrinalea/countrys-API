@@ -69,6 +69,8 @@ export default function Countries(props: Props): JSX.Element {
             <>
               {visitedList.includes(country.name.common) ? (
                 <p> You have already visited this country.</p>
+              ) : futureList.includes(country.name.common) ? (
+                <></>
               ) : (
                 <button
                   className="button"
@@ -82,6 +84,8 @@ export default function Countries(props: Props): JSX.Element {
 
             {futureList.includes(country.name.common) ? (
               <p>This country is in your future plans.</p>
+            ) : visitedList.includes(country.name.common) ? (
+              <> </>
             ) : (
               <button
                 className="button"
