@@ -17,9 +17,12 @@ interface flag {
   svg: string;
   png: string;
 }
+
+// ----------------------------------------------------------------------------------------- JSX element
 export default function FutureCountries(props: Props): JSX.Element {
   const [futureCountries, setFutureCountries] = useState<futureCountry[]>([]);
 
+  // ----------------------------------------------------------------------------------------- fetching countries
   useEffect(() => {
     const fetchCountry = async () => {
       const response = await fetch("https://restcountries.com/v3.1/all");
@@ -29,6 +32,7 @@ export default function FutureCountries(props: Props): JSX.Element {
     fetchCountry();
   }, []);
 
+  // ----------------------------------------------------------------------------------------- mapping through future countries
   const mappedCountries = futureCountries
     .filter((country) => props.futureCountries.includes(country.name.common))
     .map((country, index) => (

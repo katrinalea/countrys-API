@@ -20,10 +20,11 @@ interface Props {
   visitedCountries: string[];
   handleChangeVisited: (list: string[]) => void;
 }
-
+// ----------------------------------------------------------------------------------------- JSX element
 export default function VisitedCountries(props: Props): JSX.Element {
   const [allCountries, setAllCountries] = useState<visitedCountry[]>([]);
 
+  // ----------------------------------------------------------------------------------------- fetching countries
   useEffect(() => {
     const fetchCountry = async () => {
       const response = await fetch("https://restcountries.com/v3.1/all");
@@ -33,6 +34,8 @@ export default function VisitedCountries(props: Props): JSX.Element {
     fetchCountry();
   }, []);
 
+  // ----------------------------------------------------------------------------------------- function to remove from visited list
+
   const removeVisited = (countryName: string) => {
     const removedVisited = props.visitedCountries.filter(
       (name) => name !== countryName
@@ -40,6 +43,7 @@ export default function VisitedCountries(props: Props): JSX.Element {
     props.handleChangeVisited(removedVisited);
   };
 
+  // ----------------------------------------------------------------------------------------- mapped countries
   const mappedCountries = allCountries
     .filter((country) => props.visitedCountries.includes(country.name.common))
     .map((country, index) => (

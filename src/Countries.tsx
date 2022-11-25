@@ -19,15 +19,17 @@ interface Props {
   handleChangeVisited: (list: string[]) => void;
   handleChangeFuture: (list: string[]) => void;
 }
+// ----------------------------------------------------------------------------------------- setting empty arrays for rendering use
 
 let visitedList: string[] = [];
 let futureList: string[] = [];
+// ----------------------------------------------------------------------------------------- JSX element
 
 export default function Countries(props: Props): JSX.Element {
   const [country, setCountry] = useState<country[]>([]);
   const [searchedCountry, setSearchedCountry] = useState<string>("");
   //const [visited, setVisited] = useState<string[]>([]);
-
+  // ----------------------------------------------------------------------------------------- fetching countries from API
   useEffect(() => {
     const fetchCountry = async () => {
       const response = await fetch("https://restcountries.com/v3.1/all");
@@ -36,6 +38,7 @@ export default function Countries(props: Props): JSX.Element {
     };
     fetchCountry();
   }, []);
+  // ----------------------------------------------------------------------------------------- function to add countries to visited lsit
 
   const handleVisited = (countryName: string) => {
     console.log(visitedList);
@@ -43,11 +46,14 @@ export default function Countries(props: Props): JSX.Element {
     console.log(visitedList);
     props.handleChangeVisited(visitedList);
   };
+  // ----------------------------------------------------------------------------------------- function to add countries to future list
 
   const handleFuture = (countryName: string) => {
     futureList = [...futureList, countryName];
     props.handleChangeFuture(futureList);
   };
+
+  // ----------------------------------------------------------------------------------------- search bar handle
 
   const searchBarHandle = (searchTerm: string, countriesArray: country[]) => {
     const searchedCountries: country[] = [];
@@ -63,6 +69,7 @@ export default function Countries(props: Props): JSX.Element {
     return searchedCountries;
   };
 
+  // ----------------------------------------------------------------------------------------- mapping through filtered countries
   const countries = searchBarHandle(searchedCountry, country).map(
     (country, index) => (
       <>
@@ -111,6 +118,8 @@ export default function Countries(props: Props): JSX.Element {
       </>
     )
   );
+
+  // ----------------------------------------------------------------------------------------- final render for the element
 
   return (
     <>
