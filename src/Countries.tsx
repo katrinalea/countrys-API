@@ -17,8 +17,12 @@ interface flag {
 
 interface Props {
   handleChangeVisited: (list: string[]) => void;
+  handleChangeFuture: (list: string[]) => void;
 }
+
 let visitedList: string[] = [];
+let futureList: string[] = [];
+
 export default function Countries(props: Props): JSX.Element {
   const [country, setCountry] = useState<country[]>([]);
   const [searchedCountry, setSearchedCountry] = useState<string>("");
@@ -34,12 +38,15 @@ export default function Countries(props: Props): JSX.Element {
   }, []);
 
   const handleVisited = (countryName: string) => {
-    // setVisited([...visited, countryName]);
     console.log(visitedList);
-    // props.handleChangeVisited(visited);
     visitedList = [...visitedList, countryName];
     console.log(visitedList);
     props.handleChangeVisited(visitedList);
+  };
+
+  const handleFuture = (countryName: string) => {
+    futureList = [...futureList, countryName];
+    props.handleChangeFuture(futureList);
   };
 
   const countries = country
@@ -47,23 +54,46 @@ export default function Countries(props: Props): JSX.Element {
       country.name.common.toLowerCase().includes(searchedCountry.toLowerCase())
     )
     .map((country, index) => (
-      
-        <>
-          <div className="flex-item">
+      <>
+        <div className="flex-item">
+          <>
+            <h1 className="countrytitle">
+              Country Name : {country.name.common}{" "}
+            </h1>
+            <img className="countryflag" src={country.flags.png} alt="" />
+            <h2 className="countrycapital">
+              {" "}
+              Country Capital: {country.capital}
+            </h2>
+
             <>
-              <h1 className="countrytitle">
-                Country Name : {country.name.common}{" "}
-              </h1>
-              <img className="countryflag" src={country.flags.png} alt="" />
-              <h2 className="countrycapital">
-                {" "}
-                Country Capital: {country.capital}
-              </h2>
-              <button className = "button" key={index} onClick={() => handleVisited(country.name.common)}>Visited</button>
+              {visitedList.includes(country.name.common) ? (
+                <p> You have already visited this country.</p>
+              ) : (
+                <button
+                  className="button"
+                  key={index}
+                  onClick={() => handleVisited(country.name.common)}
+                >
+                  Visited
+                </button>
+              )}
             </>
-          </div>
-        </>
-      
+
+            {futureList.includes(country.name.common) ? (
+              <p>This country is in your future plans.</p>
+            ) : (
+              <button
+                className="button"
+                key={index}
+                onClick={() => handleFuture(country.name.common)}
+              >
+                Future
+              </button>
+            )}
+          </>
+        </div>
+      </>
     ));
 
   return (

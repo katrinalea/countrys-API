@@ -73,7 +73,7 @@
   text-align: left;
 }
 
-.button {  
+.button {
   background-color: green;
   border: none;
   color: white;
@@ -100,7 +100,4 @@
   cursor: pointer;
   height: 50px;
   border-radius: 2ch;
-
 }
-
-
