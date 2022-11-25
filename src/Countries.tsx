@@ -49,11 +49,22 @@ export default function Countries(props: Props): JSX.Element {
     props.handleChangeFuture(futureList);
   };
 
-  const countries = country
-    .filter((country: country) =>
-      country.name.common.toLowerCase().includes(searchedCountry.toLowerCase())
-    )
-    .map((country, index) => (
+  const searchBarHandle = (searchTerm: string, countriesArray: country[]) => {
+    const searchedCountries: country[] = [];
+    for (const itemCountry of countriesArray) {
+      const lowerName = (
+        itemCountry.name.common + itemCountry.capital
+      ).toLowerCase();
+      const lowerSearch = searchTerm.toLowerCase();
+      if (lowerName.includes(lowerSearch)) {
+        searchedCountries.push(itemCountry);
+      }
+    }
+    return searchedCountries;
+  };
+
+  const countries = searchBarHandle(searchedCountry, country).map(
+    (country, index) => (
       <>
         <div className="flex-item">
           <>
@@ -98,7 +109,8 @@ export default function Countries(props: Props): JSX.Element {
           </>
         </div>
       </>
-    ));
+    )
+  );
 
   return (
     <>
