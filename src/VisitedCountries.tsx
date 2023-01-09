@@ -18,7 +18,7 @@ interface flag {
 interface Props {
   //handleRender:  () => void
   visitedCountries: string[];
-  handleChangeVisited: (list: string[]) => void;
+  handleChangeVisited: (country: string) => void;
 }
 // ----------------------------------------------------------------------------------------- JSX element
 export default function VisitedCountries(props: Props): JSX.Element {
@@ -37,10 +37,8 @@ export default function VisitedCountries(props: Props): JSX.Element {
   // ----------------------------------------------------------------------------------------- function to remove from visited list
 
   const removeVisited = (countryName: string) => {
-    const removedVisited = props.visitedCountries.filter(
-      (name) => name !== countryName
-    );
-    props.handleChangeVisited(removedVisited);
+    console.log("removing", countryName);
+    props.handleChangeVisited(countryName);
   };
 
   // ----------------------------------------------------------------------------------------- mapped countries

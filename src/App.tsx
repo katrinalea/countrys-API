@@ -9,14 +9,21 @@ export default function App(): JSX.Element {
   const [visitedCountries, setVisitedCountries] = useState<string[]>([]);
   const [futureCountries, setFutureCountries] = useState<string[]>([]);
 
-  const changedVisited = (list: string[]) => {
-    setVisitedCountries(list);
+  const changedVisited = (country: string) => {
+    console.log("entered change visited");
+    if (!visitedCountries.includes(country)) {
+      setVisitedCountries([...visitedCountries, country]);
+    } else {
+      setVisitedCountries(
+        visitedCountries.splice(visitedCountries.indexOf(country) + 1)
+      );
+    }
   };
   const handleRender = (state: string) => {
     setNavigated(state);
   };
-  const changedFuture = (list: string[]) => {
-    setFutureCountries(list);
+  const changedFuture = (country: string) => {
+    setFutureCountries([...futureCountries, country]);
   };
 
   return (
@@ -41,18 +48,21 @@ export default function App(): JSX.Element {
           Want to visit{" "}
         </button>
       </div>
-
-      {navigated === "all" ? (
+      {navigated === "all" && (
         <Countries
           handleChangeVisited={changedVisited}
           handleChangeFuture={changedFuture}
+          visitedList={visitedCountries}
+          futureList={futureCountries}
         />
-      ) : navigated === "visited" ? (
+      )}{" "}
+      {navigated === "visited" && (
         <VisitedCountries
           visitedCountries={visitedCountries}
           handleChangeVisited={changedVisited}
         />
-      ) : (
+      )}{" "}
+      {navigated === "future" && (
         <FutureCountries futureCountries={futureCountries} />
       )}
     </>

@@ -16,13 +16,12 @@ interface flag {
 }
 
 interface Props {
-  handleChangeVisited: (list: string[]) => void;
-  handleChangeFuture: (list: string[]) => void;
+  handleChangeVisited: (country: string) => void;
+  handleChangeFuture: (country: string) => void;
+  visitedList: string[];
+  futureList: string[];
 }
-// ----------------------------------------------------------------------------------------- setting empty arrays for rendering use
 
-let visitedList: string[] = [];
-let futureList: string[] = [];
 // ----------------------------------------------------------------------------------------- JSX element
 
 export default function Countries(props: Props): JSX.Element {
@@ -41,16 +40,12 @@ export default function Countries(props: Props): JSX.Element {
   // ----------------------------------------------------------------------------------------- function to add countries to visited lsit
 
   const handleVisited = (countryName: string) => {
-    console.log(visitedList);
-    visitedList = [...visitedList, countryName];
-    console.log(visitedList);
-    props.handleChangeVisited(visitedList);
+    props.handleChangeVisited(countryName);
   };
   // ----------------------------------------------------------------------------------------- function to add countries to future list
 
   const handleFuture = (countryName: string) => {
-    futureList = [...futureList, countryName];
-    props.handleChangeFuture(futureList);
+    props.handleChangeFuture(countryName);
   };
 
   // ----------------------------------------------------------------------------------------- search bar handle
@@ -85,9 +80,9 @@ export default function Countries(props: Props): JSX.Element {
             </h2>
 
             <>
-              {visitedList.includes(country.name.common) ? (
+              {props.visitedList.includes(country.name.common) ? (
                 <p> You have already visited this country.</p>
-              ) : futureList.includes(country.name.common) ? (
+              ) : props.futureList.includes(country.name.common) ? (
                 <></>
               ) : (
                 <button
@@ -100,9 +95,9 @@ export default function Countries(props: Props): JSX.Element {
               )}
             </>
 
-            {futureList.includes(country.name.common) ? (
+            {props.futureList.includes(country.name.common) ? (
               <p>This country is in your future plans.</p>
-            ) : visitedList.includes(country.name.common) ? (
+            ) : props.visitedList.includes(country.name.common) ? (
               <> </>
             ) : (
               <button
