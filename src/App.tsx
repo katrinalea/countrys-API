@@ -10,20 +10,32 @@ export default function App(): JSX.Element {
   const [futureCountries, setFutureCountries] = useState<string[]>([]);
 
   const changedVisited = (country: string) => {
-    console.log("entered change visited");
     if (!visitedCountries.includes(country)) {
       setVisitedCountries([...visitedCountries, country]);
     } else {
       setVisitedCountries(
-        visitedCountries.splice(visitedCountries.indexOf(country) + 1)
+        visitedCountries.filter(
+          (place) =>
+            place !== visitedCountries[visitedCountries.indexOf(country)]
+        )
       );
     }
   };
+
+  const changedFuture = (country: string) => {
+    if (!futureCountries.includes(country)) {
+      setFutureCountries([...futureCountries, country]);
+    } else {
+      setFutureCountries(
+        futureCountries.filter(
+          (place) => place !== futureCountries[futureCountries.indexOf(country)]
+        )
+      );
+    }
+  };
+
   const handleRender = (state: string) => {
     setNavigated(state);
-  };
-  const changedFuture = (country: string) => {
-    setFutureCountries([...futureCountries, country]);
   };
 
   return (
@@ -63,7 +75,11 @@ export default function App(): JSX.Element {
         />
       )}{" "}
       {navigated === "future" && (
-        <FutureCountries futureCountries={futureCountries} />
+        <FutureCountries
+          futureCountries={futureCountries}
+          handleChangeFuture={changedFuture}
+          handleChangeVisited={changedVisited}
+        />
       )}
     </>
   );

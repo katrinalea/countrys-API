@@ -24,6 +24,8 @@ interface Props {
 export default function VisitedCountries(props: Props): JSX.Element {
   const [allCountries, setAllCountries] = useState<visitedCountry[]>([]);
 
+  console.log(props.visitedCountries);
+
   // ----------------------------------------------------------------------------------------- fetching countries
   useEffect(() => {
     const fetchCountry = async () => {
@@ -34,38 +36,32 @@ export default function VisitedCountries(props: Props): JSX.Element {
     fetchCountry();
   }, []);
 
-  // ----------------------------------------------------------------------------------------- function to remove from visited list
-
-  const removeVisited = (countryName: string) => {
-    console.log("removing", countryName);
-    props.handleChangeVisited(countryName);
-  };
-
   // ----------------------------------------------------------------------------------------- mapped countries
   const mappedCountries = allCountries
     .filter((country) => props.visitedCountries.includes(country.name.common))
     .map((country, index) => (
-      <>
-        <div className="flex-item">
-          <>
-            <h1 className="countrytitle">
-              Country Name : {country.name.common}{" "}
-            </h1>
-            <img className="countryflag" src={country.flags.png} alt="" />
-            <h2 className="countrycapital">
-              {" "}
-              Country Capital: {country.capital}
-            </h2>
-          </>
-          <button
-            className="button"
-            key={index}
-            onClick={() => removeVisited(country.name.common)}
-          >
-            Not visited
-          </button>
-        </div>
-      </>
+      <li key={index}>
+        <>
+          <div className="flex-item">
+            <>
+              <h1 className="countrytitle">
+                Country Name : {country.name.common}{" "}
+              </h1>
+              <img className="countryflag" src={country.flags.png} alt="" />
+              <h2 className="countrycapital">
+                {" "}
+                Country Capital: {country.capital}
+              </h2>
+            </>
+            <button
+              className="button"
+              onClick={() => props.handleChangeVisited(country.name.common)}
+            >
+              Not visited
+            </button>
+          </div>
+        </>
+      </li>
     ));
 
   return (

@@ -27,7 +27,7 @@ interface Props {
 export default function Countries(props: Props): JSX.Element {
   const [country, setCountry] = useState<country[]>([]);
   const [searchedCountry, setSearchedCountry] = useState<string>("");
-  //const [visited, setVisited] = useState<string[]>([]);
+
   // ----------------------------------------------------------------------------------------- fetching countries from API
   useEffect(() => {
     const fetchCountry = async () => {
@@ -37,16 +37,6 @@ export default function Countries(props: Props): JSX.Element {
     };
     fetchCountry();
   }, []);
-  // ----------------------------------------------------------------------------------------- function to add countries to visited lsit
-
-  const handleVisited = (countryName: string) => {
-    props.handleChangeVisited(countryName);
-  };
-  // ----------------------------------------------------------------------------------------- function to add countries to future list
-
-  const handleFuture = (countryName: string) => {
-    props.handleChangeFuture(countryName);
-  };
 
   // ----------------------------------------------------------------------------------------- search bar handle
 
@@ -67,50 +57,51 @@ export default function Countries(props: Props): JSX.Element {
   // ----------------------------------------------------------------------------------------- mapping through filtered countries
   const countries = searchBarHandle(searchedCountry, country).map(
     (country, index) => (
-      <>
-        <div className="flex-item">
-          <>
-            <h1 className="countrytitle">
-              Country Name : {country.name.common}{" "}
-            </h1>
-            <img className="countryflag" src={country.flags.png} alt="" />
-            <h2 className="countrycapital">
-              {" "}
-              Country Capital: {country.capital}
-            </h2>
-
+      <li key={index}>
+        <>
+          <div className="flex-item">
             <>
-              {props.visitedList.includes(country.name.common) ? (
-                <p> You have already visited this country.</p>
-              ) : props.futureList.includes(country.name.common) ? (
-                <></>
+              <h1 className="countrytitle">
+                Country Name : {country.name.common}{" "}
+              </h1>
+              <img className="countryflag" src={country.flags.png} alt="" />
+              <h2 className="countrycapital">
+                {" "}
+                Country Capital: {country.capital}
+              </h2>
+
+              <>
+                {props.visitedList.includes(country.name.common) ? (
+                  <p> You have already visited this country.</p>
+                ) : props.futureList.includes(country.name.common) ? (
+                  <></>
+                ) : (
+                  <button
+                    className="button"
+                    onClick={() =>
+                      props.handleChangeVisited(country.name.common)
+                    }
+                  >
+                    Visited
+                  </button>
+                )}
+              </>
+              {props.futureList.includes(country.name.common) ? (
+                <p>This country is in your future plans.</p>
+              ) : props.visitedList.includes(country.name.common) ? (
+                <> </>
               ) : (
                 <button
                   className="button"
-                  key={index}
-                  onClick={() => handleVisited(country.name.common)}
+                  onClick={() => props.handleChangeFuture(country.name.common)}
                 >
-                  Visited
+                  Future
                 </button>
               )}
             </>
-
-            {props.futureList.includes(country.name.common) ? (
-              <p>This country is in your future plans.</p>
-            ) : props.visitedList.includes(country.name.common) ? (
-              <> </>
-            ) : (
-              <button
-                className="button"
-                key={index}
-                onClick={() => handleFuture(country.name.common)}
-              >
-                Future
-              </button>
-            )}
-          </>
-        </div>
-      </>
+          </div>
+        </>
+      </li>
     )
   );
 
